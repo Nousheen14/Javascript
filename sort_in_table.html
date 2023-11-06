@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="lib/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="lib/fontawesome/css/all.min.css" />
+
+</head>
+
+<body>
+    <main class="container-fluid">
+        <div class="row mt-5">
+            <div class="col">
+                <section class="card">
+                    <header class="card-header bg-primary text-white">
+                        <strong><i class="fa fa-edit"></i>
+                            Java Script Programs</strong>
+                    </header>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-4">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <span class="input-group-prepend">
+                                            <label for="txtName" accesskey="" class="input-group-text"><i
+                                                    class="fa fa-edit"></i></label>
+                                        </span>
+                                        <input id="txtName" type="text" class="form-control" placeholder="Name" />
+                                    </div>
+                                </div>
+                                <div class="input-group">
+                                    <span class="input-group-prepend">
+                                        <label for="txtPrice" accesskey="n" class="input-group-text"><i
+                                                class="fa fa-edit"></i></label>
+                                    </span>
+                                    <input id="txtPrice" type="number" class="form-control" placeholder="Price" />
+                                </div>
+                                <div class="form-group">
+                                    <button id="btnAdd" type="button" class="btn btn-primary mt-3">
+                                        <i class="fa fa-arrow-circle-right"></i> Add
+                                    </button>
+                                </div>
+                            </div>
+
+
+                            <div class="col-8">
+                                <button class="btn-primary  mb-3" type="button" id="sort_name"><i
+                                        class="fa-solid fa-sort-down pr-1"></i>Sort by Name</button>
+                                <button class="btn-primary  mb-3 fa-pull-right" type="button" id="sort_price"><i
+                                        class="fa-solid fa-sort-down pr-1 "></i>Sort by Price</button>
+
+                                <table class="table" id="mytable">
+                                    <thead class="bg-primary text-white text-center">
+                                        <tr>
+                                            <th id="#txtName">Name</th>
+                                            <th>Price</th>
+                                            <th>GST</th>
+                                            <th>Sales Price</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tbdy" class="text-center">
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                </section>
+            </div>
+        </div>
+    </main>
+    <script>
+        "strict mode"
+
+        let array_name = ['Mobile Phones', 'Dslr', 'Watches'];
+        let array_price = [25000, 80000, 25000];
+
+
+        addEventListener("load", function () {
+            showData();
+        });
+
+        function showData() {
+            let eltTbdy = document.getElementById("tbdy");
+            eltTbdy.innerHTML = "";
+            for (let i = 0; i < array_name.length; i++) {
+                let gst = array_price[i] * 17 / 100;
+                let salePrice = array_price[i] + gst;
+                let temp = `<tr><td>${array_name[i]}</td><td>${array_price[i]}</td><td>${gst}</td><td>${salePrice}</td></tr>`;
+                eltTbdy.innerHTML += temp;
+            }
+        }
+
+
+        document.getElementById('btnAdd').addEventListener('click',
+            function () {
+                // adding 3 products using arrays
+
+                //getting input from user
+                let eltName = document.getElementById('txtName');
+                let eltprice = document.getElementById('txtPrice');
+                let name = eltName.value;
+                let price = eltprice.value;
+                //push values of user into array
+                array_name.push(name);
+                array_price.push(price);
+                showData();
+
+
+            });
+        //sorting of an array by name
+        document.getElementById('sort_name').addEventListener('click', function () {
+            showData()
+            let temp;
+            
+            
+            for (i = 0; i < array_name.length; i++) {
+                for (j = i + 1; j < array_name.length; j++) {
+                    if (array_name[i] > array_name[j]) {
+                        temp = array_name[i];
+                        array_name[i] = array_name[j];
+                        array_name[j] = temp;
+
+                        temp = array_price[i];
+                        array_price[i] = array_price[j];
+                        array_price[j] = temp;
+
+                        temp = array_price[i];
+                        array_price[i] = array_price[j];
+                        array_price[j] = temp;
+                        
+                        
+                        
+                    }
+
+                }
+
+            } 
+            let eltTbdy = document.getElementById("tbdy");
+            eltTbdy.innerHTML = "";
+            for (let i = 0; i < array_name.length; i++) {
+                let gst = array_price[i] * 17 / 100;
+                let salePrice = array_price[i] + gst; 
+            
+
+            let t = `<tr>
+                <td>${array_name[i]}</td>
+                <td>${array_price[i]}</td>
+                <td>${gst}</td>
+                <td>${salePrice}</td>
+                </tr>`;
+                document.getElementById('tbdy').innerHTML += t;
+            }
+        });
+        //sorting of an array by prices
+        document.getElementById('sort_price').addEventListener('click', function () {
+            showData()
+            let temp;
+            
+            
+            for (i = 0; i < array_price.length; i++) {
+                for (j = i + 1; j < array_price.length; j++) {
+                    if (array_price[i] > array_price[j]) {
+                        temp = array_name[i];
+                        array_name[i] = array_name[j];
+                        array_name[j] = temp;
+
+                        temp = array_price[i];
+                        array_price[i] = array_price[j];
+                        array_price[j] = temp;
+                        
+                        
+                    }
+
+                }
+
+            } 
+            let eltTbdy = document.getElementById("tbdy");
+            eltTbdy.innerHTML = "";
+            for (let i = 0; i < array_price.length; i++) {
+                let gst = array_price[i] * 17 / 100;
+                let salePrice = array_price[i] + gst; 
+            
+
+            let t = `<tr>
+                <td>${array_name[i]}</td>
+                <td>${array_price[i]}</td>
+                <td>${gst}</td>
+                <td>${salePrice}</td>
+                </tr>`;
+                document.getElementById('tbdy').innerHTML += t;
+            }
+        });
+        
+
+
+
+
+
+
+    </script>
+
+</body>
+
+</htm
